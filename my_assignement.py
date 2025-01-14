@@ -19,31 +19,21 @@ for element in rain_seattle:
     if month not in months:
         months.append(month)
 
-print(months)
 
 
+sum_of_month = []
 for month in months:
     for element in rain_seattle:
-        if element['date'].startswith(f'2010-{month}'):
+        if int(element['date'].split('-')[1]) == month:
             total_precipitation = total_precipitation + element['value']
-            sum_of_month.append(total_precipitation) 
-
-
+    sum_of_month.append(total_precipitation) 
 
 print(sum_of_month)    
 
 
-
-
-
-
-
-
-
-
-
 with open('results.json', 'w') as file:
     json.dump(rain_seattle, file, indent=4)
+    json.dump(sum_of_month, file, indent=4)
 
 
 
