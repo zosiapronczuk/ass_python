@@ -32,7 +32,6 @@ print(sum_of_month)
 
 
 with open('results.json', 'w') as file:
-    json.dump(rain_seattle, file, indent=4)
     json.dump(sum_of_month, file, indent=4)
 
 
