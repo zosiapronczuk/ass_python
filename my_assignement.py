@@ -13,27 +13,49 @@ for item in contents_rain:
 
 total_precipitation = 0
 
-months =[]
-for element in rain_seattle:
-    month = int(element['date'].split('-')[1])
-    if month not in months:
-        months.append(month)
-
-
+# months =[]
+# for element in rain_seattle:
+#     month = int(element['date'].split('-')[1])
+#     if month not in months:
+#         months.append(month)
 
 sum_of_month = []
-for month in months:
+
+
+for month in range(1, 13):
+    total_precipitation = 0
     for element in rain_seattle:
         if int(element['date'].split('-')[1]) == month:
             total_precipitation = total_precipitation + element['value']
     sum_of_month.append(total_precipitation) 
+    
 
-print(sum_of_month)    
+# total yearly precipitation
+total_yearly_precipitation = sum(sum_of_month)
 
+# relative mothly precipitation
+
+relative_monthly_list = []
+
+for item in sum_of_month:
+    relative_monthly_precipitation = item / total_yearly_precipitation
+    relative_monthly_list.append(relative_monthly_precipitation)
+
+
+# putting everything in results.json
+
+data = {
+    "Seattle": { 
+        "station": "GHCND:US1WAKG0038",
+        "state": "WA",
+        "total_monthly_precipitation": sum_of_month,
+        "total_yearly_precipitation": total_yearly_precipitation,
+        "relative_monthly_precipitation": relative_monthly_list,
+        "relative_yearly_precipitation": "lol"
+    }
+}
+    
 
 with open('results.json', 'w') as file:
-    json.dump(sum_of_month, file, indent=4)
-
-
-
-    
+    json.dump(data, file, indent=4)
+   
